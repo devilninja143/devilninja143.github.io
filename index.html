@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Advice generator app | @NHLikhon143</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .attribution a { color: hsl(228, 45%, 44%); }
+    .advice_style{
+      height: fit-content!important;
+      margin: 20px auto;
+    }
+    #advice_cont{
+      text-transform: uppercase;
+      font-size: 15px;
+      text-align: center;
+      color: hsl(150, 100%, 66%);
+    }
+    #advice_txt{
+      font-size: 28px;
+      font-weight: bolder;
+      color: hsl(193, 38%, 86%);
+      text-align: center;
+    }
+    /*box design*/
+    .st-1{
+      display: flex;
+      margin: 0px 5px;
+      height: 20px;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+    }
+    .st-l{
+      height: 100%;
+      width: 5px;
+      background: hsl(193, 38%, 86%);
+      display: block;
+      border-radius: 5px;
+      margin: 0px 5px;
+    }
+    .st-r{
+      height: 100%;
+      width: 5px;
+      background: hsl(193, 38%, 86%);
+      display: block;
+      border-radius: 5px;
+      margin: 0px 5px;
+    }
+    .hr{
+      height: 2px;
+      width: 100%;
+      background: hsl(218, 23%, 16%);
+      display: block;
+      margin: auto;
+    }
+    body{
+      font-family: 'Manrope', sans-serif;
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: hsl(218, 23%, 16%);
+    }
+    #main_cont{
+      background: hsl(217, 19%, 38%);
+      box-shadow: 0px 0px 5px hsl(217, 19%, 24%);
+      width: 400px;
+      border-radius: 15px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      height: fit-content;
+      padding: 20px 30px;
+      position: relative;
+    }
+    #main_cont > div{
+      flex:1;
+    }
+    .attribution{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-size: 11px;
+      text-align: center;
+    }
+    #btn-load{
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      margin: auto;
+      border: 0px;
+      justify-content: center;
+      background-color: hsl(150, 100%, 66%);
+      position: absolute;
+      bottom: -20px;
+      left: calc(50% - 20px);
+    }
+    #btn-load:active > .btn-img{
+      animation-name: btn-loop;
+      animation-duration: 0.5s;
+      animation-timing-function: linear;
+      animation-delay: 0s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: 1;
+      animation-direction: normal;
+    }
+    .btn-img{
+      margin: auto;
+      width: fit-content;
+      transform: rotate(0deg);
+    }
+    .btn-img img{
+      margin: auto;
+      display: flex;
+      width: 20px;
+      height: 20px;
+    }
+    .loading{
+      width: 40px;
+      height: 40px;
+      display: block;
+      border-radius: 100%;
+      margin: auto;
+      border: 1px hsl(218, 23%, 16%) solid;
+      border-left: 1px hsl(193, 38%, 86%) solid;
+      animation-name: loop;
+      animation-duration: 3s;
+      animation-timing-function: linear;
+      animation-delay: 0s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-direction: normal;
+      animation-play-state: running;
+    }
+    .hide{
+      display: none;
+    }
+    @keyframes loop {
+      from{
+        transform: rotate(0deg);
+      }
+      to{
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes btn-loop {
+      from{
+        transform: rotate(0deg);
+      }
+      to{
+        transform: rotate(360deg);
+      }
+    }
+    @media screen and (max-width:450px) {
+      #main_cont{
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div id="main_cont">
+      <!-- Advice id -->
+      <div id="advice_cont">
+        Advice #<span id="advice_id"></span><!-- Advice ID goes here -->
+      </div>
+      <!-- Advice txt -->
+      <div style="width: 100%;">
+        <div class="loading"></div>
+      </div>
+      <div id="advice_txt"></div>
+      <div class="advice_style" style="display: flex;">
+        <div class="hr"></div>
+        <div class="st-1">
+          <div class="st-l"></div>
+          <div class="st-r"></div>
+        </div>
+        <div class="hr"></div>
+      </div>
+      <!-- Addvice btn -->
+      <button id="btn-load" onclick="ldAdvice()">
+        <span class="btn-img">
+          <img src="./images/icon-dice.svg" alt="">
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="https://www.facebook.com/NHLikhon143/">Nurul Hafiz Likhon</a>.
+  </div>
+  <script>
+  //execute function on button click
+  window.onload = i=ldAdvice();
+  //API Fetching
+  self.addEventListener("fetch",(e)=>{
+    console.log(e);
+  })
+  function ldAdvice(){
+    document.querySelector(".loading").classList.remove("hide");
+    document.querySelector("#advice_txt").classList.add("hide");
+    fetch("https://api.adviceslip.com/advice").then(res=>{
+      return res.json()
+    })
+    .then(d=>{
+      document.querySelector(".loading").classList.add("hide");
+      document.querySelector("#advice_txt").classList.remove("hide");
+      console.log(d);
+      advice_id = d.slip.id;
+      advice_txt = d.slip.advice;
+      document.getElementById("advice_id").innerText=advice_id;
+      document.getElementById("advice_txt").innerText=`"${advice_txt}"`;
+    })
+  }
+  </script>
+</body>
+</html>
